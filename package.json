@@ -20,6 +20,7 @@
     "snekfetch": "^4.0.4",
     "sqlite": "^4.0.10",
     "sqlite3": "^4.2.0",
+    "superagent": "^5.2.2",
     "trello": "^0.10.0",
     "ytdl-core": "^2.1.2"
   }

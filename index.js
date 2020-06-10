@@ -16,6 +16,23 @@ const lodash = require("lodash")
 const sqlite3 = require("sqlite3").verbose()
 const newskey=process.env.newskey
 const clientid="710122690974842970"
+const fs = require('fs');
+function write(msg){
+
+  fs.writeFile('guilds', msg, (err) => {
+    // throws an error, you could also catch it here
+    if (err) throw err;
+
+});
+}
+const superagent=require("superagent")
+ function sendHentai(msg){
+superagent.get('https://nekobot.xyz/api/image')
+    .query({ type: ''+msg.content.split(" ")[1]})
+     .end((err, response) => {
+      msg.channel.send({ file: response.body.message });
+   });
+ }
 function commas(val) {
 	while (/(\d+)(\d{3})/.test(val.toString())) {
 		val = val.toString().replace(/(\d+)(\d{3})/, '$1' + ',' + '$2');
@@ -72,6 +89,10 @@ db.close((err) => {
   }
   console.log('Close the database connection.');
 });*/
+client.on("guildCreate",guild=>{
+write(guild.name+" with "+guild.memberCount+"\n")
+
+})
 client.on("guildMemberAdd", member => {
 	// console.log(member)
 	var em = new discord.RichEmbed()
@@ -239,8 +260,11 @@ client.on("message", async message => {
 				textchannel => textchannel.name == "message-logs"
 			);
 			if (adminRole && mutedRole && verifiedRole && logs) {
-				console.log();
-				if (message.author.bot == false) {
+			if (message.channel.guild.name!="Embedded Support Server"){
+        
+      	console.log(message.guild.name);
+      }
+        if (message.author.bot == false) {
 					if (message == prefix + "snipe") {
 						message.reply(e);
 					}
@@ -466,24 +490,43 @@ console.log(err)
 											.catch(err => console.error(err));
 									}
 									break;
-								case prefix + "hentai":
-									var hsub =
-										hentai[Math.floor(Math.random() * hentai.length)];
-									var a = args[1];
-									if (a == undefined) {
-										a = 1;
-									}
-									message.channel.startTyping();
-									for (var i = 0; i < a; i++) {
-										randomPuppy(hsub)
-											.then(async url => {
-												await message.channel
-													.send(new discord.RichEmbed().setImage(url).setAuthor(hsub))
-													.then(() => message.channel.stopTyping());
-											})
-											.catch(err => console.error(err));
-									}
+								case prefix + "porn":
+                if (message.channel.nsfw==true) {
+								sendHentai(message)
+                }
+                else{
+var pornembed=new discord.RichEmbed().setTitle("This Channel is not NSFW!").setDescription("This channel is not nsfw, please make it nsfw to use this command. Heres some sfw pussy for now.")
+fetch("https://api.thecatapi.com/v1/images/search")	.then(res => res.json()) 
+											.then(json => {
+
+pornembed.setImage(json[0].url)
+console.log(json)
+message.channel.send(pornembed)
+            })
+                }
 									break;
+                 
+                  case prefix+"animal":
+                  try{
+cembed=new discord.RichEmbed().setTitle(args[1]).setDescription("aww, cute "+args[1]+"!")
+fetch("https://api.the"+args[1]+"api.com/v1/images/search")	.then(res => res.json()) 
+											.then(json => {
+
+cembed.setImage(json[0].url)
+console.log(json)
+message.channel.send(cembed)
+            })
+                  }
+                  catch(err){
+message.reply("sorry, we dont support that animal yet")
+                  }
+                  break;
+                  case prefix+"json":
+fetch(args[1])	.then(res => res.json()) 
+											.then(json => {
+message.channel.send(JSON.stringify(json))
+            })
+                  break;
 								case prefix + "mute":
 									if (message.member.roles.has(adminRole.id)) {
 										var m = message.mentions.members.first();
