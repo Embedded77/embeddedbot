@@ -1,4 +1,4 @@
-//Embedded, 05-16-20
+//Embedded, 03-10-20
 /*
 NOTE: THIS HAS NSFW COMMANDS, IF YOU DO NOT WANT TO SEE IT, PLEASE STOP READING.
 However, Im pretty sure I removed them from the github.
