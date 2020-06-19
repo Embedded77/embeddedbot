@@ -1,4 +1,5 @@
 //Embedded, 05-16-20
+//Note, removed all nsfw commands from this.
 const express = require("express");
 const bodyParser = require("body-parser");
 const app = express();
@@ -26,13 +27,7 @@ function write(msg){
 });
 }
 const superagent=require("superagent")
- function sendHentai(msg){
-superagent.get('https://nekobot.xyz/api/image')
-    .query({ type: ''+msg.content.split(" ")[1]})
-     .end((err, response) => {
-      msg.channel.send({ file: response.body.message });
-   });
- }
+
 function commas(val) {
 	while (/(\d+)(\d{3})/.test(val.toString())) {
 		val = val.toString().replace(/(\d+)(\d{3})/, '$1' + ',' + '$2');
@@ -490,22 +485,7 @@ console.log(err)
 											.catch(err => console.error(err));
 									}
 									break;
-								case prefix + "porn":
-                if (message.channel.nsfw==true) {
-								sendHentai(message)
-                }
-                else{
-var pornembed=new discord.RichEmbed().setTitle("This Channel is not NSFW!").setDescription("This channel is not nsfw, please make it nsfw to use this command. Heres some sfw pussy for now.")
-fetch("https://api.thecatapi.com/v1/images/search")	.then(res => res.json()) 
-											.then(json => {
-
-pornembed.setImage(json[0].url)
-console.log(json)
-message.channel.send(pornembed)
-            })
-                }
-									break;
-                 
+		
                   case prefix+"animal":
                   try{
 cembed=new discord.RichEmbed().setTitle(args[1]).setDescription("aww, cute "+args[1]+"!")
