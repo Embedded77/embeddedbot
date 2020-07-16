@@ -1,9 +1,4 @@
-//Embedded, 03-10-20
-/*
-NOTE: THIS HAS NSFW COMMANDS, IF YOU DO NOT WANT TO SEE IT, PLEASE STOP READING.
-However, Im pretty sure I removed them from the github.
 
-*/
 const express = require("express");
 const blacklisted = [
     "discord.gg",
@@ -91,7 +86,6 @@ function getWarnings(message) {
         }
     });
 }
-//const Pornsearch = require('pornsearch')
 const newskey = process.env.newskey
 const google = require("./gle.js")
 const rp = require('request-promise');
@@ -146,9 +140,6 @@ const reddit = [
     "2meirl4meirl",
     "AdviceAnimals"
 ];
-const hentai = [
-    "futanari"
-]
 fetch.Promise = bluebird;
 const prefix = "r!";
 var hp = 1;
