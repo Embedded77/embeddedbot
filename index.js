@@ -147,8 +147,7 @@ var listener = app.listen(process.env.PORT, () => {
     console.log(`Your app is listening on port ${listener.address().port}`);
 });
 var trello = new trello_pack(
-    "15156af17453ece66e0ace7c25faae5a",
-    "a576ede86ba23bf00c843c64c1d7bc678ef07d2a25514ec7cdc370b3e149c6a8"
+    //removed
 );
 
 client.on("guildCreate", guild => {
